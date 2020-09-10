@@ -5,14 +5,14 @@
   gather_facts: false
 
   vars:
-    - key_data: "{{ lookup('hashi_vault', 'secret=secret/data/kv-v2 token={{ vault_token | mandatory }} url=http://vault.kube-system.svc.cluster.local:8200') }}"
+    - key_data: "{{ lookup('hashi_vault', 'secret=secret/data/kv-v2 token={{ lookup('env','vault_token') | mandatory }} url=http://vault.kube-system.svc.cluster.local:8200') }}"
     - ansible_user: "{{ key_data|json_query('data.username') }}"
     - ansible_password: "{{ key_data|json_query('data.password') }}"
 
   tasks:
     - name: Return all kv v2 secrets from a path
       debug:
-        msg: "{{ lookup('hashi_vault', 'secret=secret/data/kv-v2 token={{ vault_token | mandatory }} url=http://vault.kube-system.svc.cluster.local:8200') }}"
+        msg: "{{ lookup('hashi_vault', 'secret=secret/data/kv-v2 token={{ lookup('env','vault_token') | mandatory }} url=http://vault.kube-system.svc.cluster.local:8200') }}"
 
     - name: Display Username from Vault
       debug:
