@@ -5,8 +5,8 @@
   gather_facts: false
 
   vars:
-    - ansible_user: "{{ lookup('env','username') }}"
-    - ansible_password: "{{ lookup('env','password') }}"
+    - ansible_user: "{{ lookup('env','USERNAME') }}"
+    - ansible_password: "{{ lookup('env','PASSWORD') }}"
 
   tasks:
     - name: Display Username from Vault
